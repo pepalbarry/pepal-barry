@@ -1,5 +1,68 @@
 @import "tailwindcss";
-@plugin "daisyui" 
-{
-  themes:light --default;
+
+/* Hide scrollbar */
+::-webkit-scrollbar {
+  display: none;
 }
+
+/* Light Theme Variables */
+:root {
+  --background: #F7FFF7;            /* Light background */
+  --foreground: #1B4332;            /* Dark text */
+
+  --primary: #249a2c;               /* Main brand green */
+  --primary-foreground: #ffffff;    /* Text on primary */
+
+  --secondary: #FFD166;             /* Warm yellow highlights */
+  --secondary-foreground: #1B4332;  /* Text on secondary */
+
+  --accent: #06D6A0;                /* Mint green accent */
+  --heading-color: #005606;         /* Heading color */
+  --subtle-text: #4F6D5F;           /* Subtle text / secondary text */
+
+  --border: #3CB043;                /* Border color */
+  --muted: #E5F6E0;                 /* Muted background / cards */
+  --muted-foreground: #1B4332;      /* Text on muted background */
+}
+
+/* Dark Theme Variables (optional) */
+[data-theme="dark"] {
+  --background: #1B4332;            /* Dark green background */
+  --foreground: #F7FFF7;            /* Light text */
+
+  --primary: #06D6A0;               /* Accent as primary */
+  --primary-foreground: #1B4332;
+
+  --secondary: #015607;             /* Darker green secondary */
+  --secondary-foreground: #F7FFF7;
+
+  --accent: #FFD166;                /* Yellow accent */
+  --heading-color: #06D6A0;
+  --subtle-text: #C0E8D5;
+
+  --border: #06D6A0;
+  --muted: #14532D;
+  --muted-foreground: #F7FFF7;
+}
+
+/* Tailwind Theme Inline Mapping */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-accent: var(--accent);
+  --color-heading: var(--heading-color);
+  --color-subtle: var(--subtle-text);
+
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+}
+
+
