@@ -1,6 +1,6 @@
-# NutriGren Web App
+# PEPAL BARRY Web App
 
-A responsive ecommerce experience for the NutriGren micro-bakery. The UI ships with a minimal green art direction, small curated catalog (4–5 products), Razorpay-ready checkout, address capture, and post-purchase order history.
+A responsive ecommerce experience for the PEPAL BARRY micro-bakery. The UI ships with a minimal warm aesthetic, small curated catalog (4–5 products), Razorpay-ready checkout, address capture, and post-purchase order history.
 
 ## Features
 

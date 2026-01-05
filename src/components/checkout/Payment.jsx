@@ -53,7 +53,7 @@ export default function Payment() {
     try {
       const response = await placeCodOrder(payload);
       const savedAddress = { ...address };
-      resetCheckout();
+
       navigate("/order-success", {
         state: {
           order: response.data.order,
@@ -61,6 +61,9 @@ export default function Payment() {
           paymentMethod: "cod",
         },
       });
+
+      // Reset checkout after navigation to avoid "Preparing address form..." flash
+      setTimeout(() => resetCheckout(), 100);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to place COD order.");
     } finally {
@@ -89,18 +92,18 @@ export default function Payment() {
         key: data.key,
         amount: data.amount,
         currency: data.currency,
-        name: "NutriGren",
+        name: "PEPAL BARRY",
         description: product.name,
         order_id: data.razorpayOrderId,
         prefill: {
           name: address.fullName,
-          email: user?.email || "ashu@nutrigren.co",
+          email: user?.email || "ashu@pepalbarry.co",
           contact: address.phoneNumber,
         },
         notes: {
           address: `${address.houseNo}, ${address.city}`,
         },
-        theme: { color: "#1d8a52" },
+        theme: { color: "#5d4037" },
         handler: async (response) => {
           try {
             const verifyRes = await verifyRazorpayPayment({
@@ -197,7 +200,7 @@ export default function Payment() {
         </div>
         <div className="flex justify-between text-subtle">
           <span>Delivery</span>
-          <span className="text-emerald-600">Free</span>
+          <span className="text-primary">Free</span>
         </div>
         <div className="border-t border-primary/10 pt-3 mt-3 flex justify-between font-semibold text-heading text-xl">
           <span>Total</span>

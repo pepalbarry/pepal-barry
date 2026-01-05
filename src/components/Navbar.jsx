@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import logo from "/logo2.png";
+import logo from "/PEPAL_BARRY_LOGO.png";
 import Button from "./common/Button";
 
 
 const links = [
-  { label: "Shop", href: "/#products" },
-  { label: "Ethos", href: "/#ethos" },
+  { label: "Shop", href: "/shop" },
 ];
 
 export default function Navbar() {
@@ -32,9 +31,9 @@ export default function Navbar() {
     <header className="fixed top-4 left-0 right-0 z-50 px-4">
       <nav className="max-w-6xl mx-auto rounded-full border border-white/60 bg-white/80 backdrop-blur-2xl px-5 sm:px-8 py-3 flex items-center justify-between shadow-soft">
         <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="NutriGren" className="w-12" />
-          <span className="hidden sm:inline text-lg font-semibold text-heading">
-            NutriGren
+          <img src={logo} alt="PEPAL BARRY" className="w-12 h-12 rounded-full object-cover" />
+          <span className="inline text-lg font-semibold text-heading">
+            PEPAL BARRY
           </span>
         </Link>
 

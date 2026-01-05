@@ -5,6 +5,7 @@ import { getProductById } from "../services/products";
 import Button from "../components/common/Button";
 import Card from "../components/common/Card";
 import BackButton from "../components/common/BackButton";
+import PageLoader from "../components/common/PageLoader";
 
 export default function ProductDetails() {
   const { productId } = useParams();
@@ -14,7 +15,6 @@ export default function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [cartMessage, setCartMessage] = useState("");
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -47,11 +47,7 @@ export default function ProductDetails() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="w-12 h-12 rounded-full border-4 border-muted border-t-primary animate-spin" />
-      </div>
-    );
+    return <PageLoader />;
   }
 
   if (error || !product) {
@@ -74,7 +70,11 @@ export default function ProductDetails() {
         <Card className="p-6 md:p-10 bg-card/90 border border-primary/15">
           <div className="aspect-square rounded-[36px] bg-primary/5 flex items-center justify-center">
             <img
-              src={product.image}
+              src={
+                product.images?.[0] ||
+                product.image ||
+                "https://placehold.co/600x600?text=No+Image"
+              }
               alt={product.name}
               className="w-4/5 object-contain drop-shadow-2xl"
             />
@@ -95,15 +95,17 @@ export default function ProductDetails() {
               ₹{product.price}
             </span>
             <span className="text-sm text-subtle">
-              {Number(product.stock ?? 0) > 6
-                ? "Ready to ship"
-                : `Only ${product.stock ?? 4} jars left`}
+              {Number(product.stock ?? 0) <= 0
+                ? "Out of stock"
+                : Number(product.stock ?? 0) > 6
+                  ? "Ready to ship"
+                  : `Only ${product.stock} jars left`}
             </span>
           </div>
 
-          <div className="space-y-3">
+          <div className="flex items-center gap-6">
             <label className="text-sm font-medium text-subtle">Quantity</label>
-            <div className="inline-flex items-center gap-6 rounded-full border border-primary/20 px-6 py-3">
+            <div className="inline-flex items-center gap-6 rounded-full border border-primary/20 px-5 py-2.5">
               <button
                 className="text-2xl"
                 onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
@@ -123,35 +125,14 @@ export default function ProductDetails() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
-            <Button className="flex-1" onClick={handleBuyNow}>
-              Buy now
-            </Button>
             <Button
-              variant="outline"
               className="flex-1"
-              onClick={() =>
-                setCartMessage("Cart + subscriptions drop in December.")
-              }
+              onClick={handleBuyNow}
+              disabled={Number(product.stock ?? 0) <= 0}
             >
-              Add to cart
+              {Number(product.stock ?? 0) <= 0 ? "Sold Out" : "Buy now"}
             </Button>
           </div>
-
-          {cartMessage && (
-            <p className="text-sm text-subtle">{cartMessage}</p>
-          )}
-
-          <Card className="p-5 border border-primary/10 bg-muted">
-            <h3 className="text-lg font-semibold text-heading mb-3">
-              Ingredient rituals
-            </h3>
-            <ul className="space-y-2 text-subtle">
-              <li>• Stone-ground millet flour & soaked nuts</li>
-              <li>• Cold-pressed coconut oil, no palm oil</li>
-              <li>• Jaggery sweetness & pink salt</li>
-              <li>• Ships in insulated recyclable jars</li>
-            </ul>
-          </Card>
         </div>
       </div>
     </div>

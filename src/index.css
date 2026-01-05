@@ -2,42 +2,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f2fff5;
-  --foreground: #0f1f16;
+  --background: #fdf8f4;
+  --foreground: #4e342e;
 
-  --primary: #1d8a52;
-  --primary-foreground: #f6fff8;
+  --primary: #5d4037;
+  --primary-foreground: #ffffff;
 
-  --secondary: #c3f584;
-  --secondary-foreground: #0f291a;
+  --secondary: #d7ccc8;
+  --secondary-foreground: #3e2723;
 
-  --accent: #04aa6d;
-  --heading-color: #054732;
-  --subtle-text: #4a6a5a;
+  --accent: #8d6e63;
+  --heading-color: #3e2723;
+  --subtle-text: #795548;
 
-  --border: #b9d8c4;
-  --muted: #e3f6ea;
-  --muted-foreground: #0f1f16;
+  --border: #d7ccc8;
+  --muted: #efebe9;
+  --muted-foreground: #4e342e;
 
   --card: #ffffff;
-  --card-foreground: #0f1f16;
+  --card-foreground: #4e342e;
 }
 
 [data-theme="dark"] {
-  --background: #041b13;
-  --foreground: #f5fff7;
-  --primary: #58ffb0;
-  --primary-foreground: #00301c;
-  --secondary: #2d3b2f;
-  --secondary-foreground: #eaffec;
-  --accent: #2dd19d;
-  --heading-color: #d9ffe8;
-  --subtle-text: #bbd8c6;
-  --border: #295841;
-  --muted: #10261d;
-  --muted-foreground: #f5fff7;
-  --card: #10261d;
-  --card-foreground: #f5fff7;
+  --background: #281a16;
+  --foreground: #ede0d4;
+  --primary: #a1887f;
+  --primary-foreground: #281a16;
+  --secondary: #4e342e;
+  --secondary-foreground: #ede0d4;
+  --accent: #8d6e63;
+  --heading-color: #ffffff;
+  --subtle-text: #bcaaa4;
+  --border: #5d4037;
+  --muted: #3e2723;
+  --muted-foreground: #ede0d4;
+  --card: #3e2723;
+  --card-foreground: #ede0d4;
 }
 
 @theme inline {
@@ -81,6 +81,46 @@ a {
 .glass-panel {
   background-color: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 40px 120px -60px rgba(4, 70, 35, 0.45);
+  box-shadow: 0 40px 120px -60px rgba(78, 52, 46, 0.45);
   backdrop-filter: blur(15px);
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+
+  34% {
+    border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+  }
+
+  67% {
+    border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+  }
+
+  100% {
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-morph {
+  animation: morph 8s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
 }

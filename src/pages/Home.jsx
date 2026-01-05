@@ -10,8 +10,8 @@ export default function Home() {
       <Navbar />
       <main className="pt-16 space-y-16 md:space-y-20">
         <Hero />
-        <Highlights />
         <Product />
+        <Highlights />
       </main>
       <Footer />
     </div>

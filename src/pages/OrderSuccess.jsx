@@ -23,7 +23,6 @@ export default function OrderSuccess() {
 
   return (
     <div className="min-h-screen bg-background px-5 py-24">
-      <BackButton />
       <div className="max-w-3xl mx-auto text-center space-y-8">
         <div className="w-16 h-16 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto">
           ✓

@@ -30,7 +30,11 @@ export default function OrderSummary() {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row gap-6">
         <img
-          src={product.image}
+          src={
+            product.images?.[0] ||
+            product.image ||
+            "https://placehold.co/600x600?text=No+Image"
+          }
           alt={product.name}
           className="w-full md:w-1/3 rounded-3xl bg-muted object-cover"
         />

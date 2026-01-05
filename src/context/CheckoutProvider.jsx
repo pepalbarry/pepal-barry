@@ -11,7 +11,7 @@ export function useCheckout() {
   return context;
 }
 
-const STORAGE_KEY = "nutrigren-checkout";
+const STORAGE_KEY = "pepalbarry-checkout";
 
 const initialState = {
   product: null,

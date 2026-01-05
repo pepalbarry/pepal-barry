@@ -24,7 +24,7 @@ export default function Highlights() {
   return (
     <section className="py-16 md:py-24 px-5 md:px-20 space-y-10" id="ethos">
       <SectionHeading
-        eyebrow="Why NutriGren"
+        eyebrow="Why PEPAL BARRY"
         title="Mindfully baked for busy routines"
         description="We curated just five recipes so we can focus on freshness, traceability, and taste. Your pantry staple for cravings without compromise."
       />

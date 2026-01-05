@@ -55,7 +55,7 @@ export default function Profile() {
               Default payment: Razorpay
             </span>
             <span className="px-4 py-2 rounded-full bg-muted text-muted-foreground">
-              City: Bengaluru
+              City: Odisha
             </span>
           </div>
         </Card>

@@ -1,14 +1,18 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCheckout } from "../../context/CheckoutProvider";
 import Button from "../common/Button";
+import { useForm } from "react-hook-form";
 
 export default function AddressForm() {
   const navigate = useNavigate();
   const { product, address, setAddress } = useCheckout();
 
-  const [formData, setFormData] = useState(
-    address || {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: address || {
       fullName: "",
       phoneNumber: "",
       houseNo: "",
@@ -17,16 +21,11 @@ export default function AddressForm() {
       city: "",
       state: "",
       pincode: "",
-    }
-  );
+    },
+  });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setAddress(formData);
+  const onSubmit = (data) => {
+    setAddress(data);
     navigate("/checkout/payment");
   };
 
@@ -47,72 +46,69 @@ export default function AddressForm() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid md:grid-cols-2 gap-4">
           <InputField
             label="Full name"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
+            error={errors.fullName}
+            {...register("fullName", { required: "Full name is required" })}
           />
           <InputField
             label="Phone"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
             type="tel"
-            required
+            error={errors.phoneNumber}
+            {...register("phoneNumber", {
+              required: "Phone number is required",
+              pattern: {
+                value: /^[0-9]{10}$/,
+                message: "Please enter a valid 10-digit number",
+              },
+            })}
           />
         </div>
 
         <InputField
           label="House / Apartment"
-          name="houseNo"
-          value={formData.houseNo}
-          onChange={handleChange}
           placeholder="Flat 101, Building A"
-          required
+          error={errors.houseNo}
+          {...register("houseNo", { required: "House/Apartment is required" })}
         />
 
         <div className="grid md:grid-cols-2 gap-4">
           <InputField
             label="Street"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
+            error={errors.address}
+            {...register("address", { required: "Street address is required" })}
           />
           <InputField
             label="Landmark"
-            name="landmark"
-            value={formData.landmark}
-            onChange={handleChange}
             placeholder="Opp. Community Park"
+            error={errors.landmark}
+            {...register("landmark")}
           />
         </div>
 
         <div className="grid md:grid-cols-3 gap-4">
           <InputField
             label="City"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            required
+            error={errors.city}
+            {...register("city", { required: "City is required" })}
           />
           <InputField
             label="State"
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            required
+            error={errors.state}
+            {...register("state", { required: "State is required" })}
           />
           <InputField
             label="Pincode"
-            name="pincode"
-            value={formData.pincode}
-            onChange={handleChange}
-            required
+            error={errors.pincode}
+            {...register("pincode", {
+              required: "Pincode is required",
+              pattern: {
+                value: /^[0-9]{6}$/,
+                message: "Invalid Pincode",
+              },
+            })}
           />
         </div>
 
@@ -131,30 +127,21 @@ export default function AddressForm() {
   );
 }
 
-function InputField({
-  label,
-  name,
-  value,
-  onChange,
-  type = "text",
-  placeholder,
-  required,
-}) {
+function InputField({ label, error, type = "text", className, ...props }) {
   return (
     <label className="text-sm font-medium text-subtle block space-y-2">
       <span className="flex items-center gap-1">
         {label}
-        {required && <span className="text-red-500 ml-1">*</span>}
+        {props.required && <span className="text-red-500 ml-1">*</span>}
       </span>
       <input
         type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        required={required}
-        className="w-full rounded-2xl border border-primary/15 bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40"
+        className={`w-full rounded-2xl border ${error ? "border-red-400 focus:ring-red-200" : "border-primary/15"
+          } bg-white px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/40`}
+        {...props}
       />
+      {error && <span className="text-red-500 text-xs">{error.message}</span>}
     </label>
   );
 }
+

@@ -1,47 +1,74 @@
 import { Link } from "react-router-dom";
-import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
+import { FaInstagram, FaFacebookF } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
-const quickLinks = [
-  { id: "shop", label: "Shop", href: "/#products" },
-  { id: "ethos", label: "Ethos", href: "#ethos" },
-  { id: "login", label: "Login", href: "/login" },
-  { id: "register", label: "Register", href: "/register" },
-];
 
 const socialLinks = [
-  { id: "instagram", icon: FaInstagram, href: "#" },
-  { id: "facebook", icon: FaFacebookF, href: "#" },
-  { id: "twitter", icon: FaTwitter, href: "#" },
+  { id: "instagram", icon: FaInstagram, href: "https://www.instagram.com/pepalbarry/" },
+  { id: "facebook", icon: FaFacebookF, href: "https://www.facebook.com/pepalbarry/" },
 ];
 
 export default function Footer() {
+  const { user } = useAuth();
+
+  const quickLinks = [
+    { label: "Shop", href: "/shop" },
+    ...(user
+      ? [
+        { label: "Profile", href: "/profile" },
+        { label: "Orders", href: "/orders" },
+      ]
+      : []),
+  ];
+
   return (
     <footer className="mt-24 bg-foreground text-background">
-      <div className="max-w-6xl mx-auto px-5 py-16 grid gap-12 lg:grid-cols-3">
-        <div className="space-y-4">
-          <p className="text-sm uppercase tracking-[0.3em] text-secondary">
-            NutriGren
+      <div className="max-w-7xl mx-auto px-6 py-20 grid gap-16 lg:grid-cols-[1.5fr_1fr_1.5fr]">
+        {/* Brand Column */}
+        <div className="space-y-6">
+          <p className="text-xs uppercase tracking-[0.3em] text-background font-bold">
+            PEPAL BARRY
           </p>
-          <h3 className="text-3xl font-display">
-            Modern mithai jars, but make it functional.
+          <h3 className="text-3xl sm:text-4xl font-display leading-[1.1] max-w-md">
+            Modern mithai jars, made functional.
           </h3>
-          <p className="text-base text-background/80">
-            Family-owned micro-bakery in Bengaluru. We only ship what we’d send
-            to our own dinner table.
+          <p className="text-base text-background/60 leading-relaxed max-w-sm">
+            Family-owned micro-bakery. We only ship what we’d send to our own dinner table.
           </p>
+          <div className="flex gap-4 pt-4">
+            {socialLinks.map(({ id, icon: Icon, href }) => (
+              <a
+                key={id}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="w-10 h-10 rounded-full border border-background/20 flex items-center justify-center transition-all duration-300 hover:scale-110"
+                aria-label={`Follow us on ${id}`}
+              >
+                <Icon className="text-lg size-6" />
+              </a>
+            ))}
+          </div>
         </div>
 
+        {/* Quick Links */}
         <div>
-          <h4 className="text-xl font-semibold mb-4">Quick links</h4>
-          <ul className="space-y-3 text-background/80">
+          <h4 className="text-lg font-semibold mb-6">Quick links</h4>
+          <ul className="space-y-4 text-background/60">
             {quickLinks.map((link) => (
-              <li key={link.id}>
+              <li key={link.label}>
                 {link.href.startsWith("/") ? (
-                  <Link className="hover:text-background" to={link.href}>
+                  <Link
+                    className="hover:text-background transition-colors duration-300"
+                    to={link.href}
+                  >
                     {link.label}
                   </Link>
                 ) : (
-                  <a className="hover:text-background" href={link.href}>
+                  <a
+                    className="hover:text-background transition-colors duration-300"
+                    href={link.href}
+                  >
                     {link.label}
                   </a>
                 )}
@@ -50,44 +77,39 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="space-y-5">
-          <h4 className="text-xl font-semibold">Stay in touch</h4>
-          <p className="text-background/80">
-            Join the drop list for flavor restocks & weekend farmer’s market
-            pop-ups.
+        {/* Newsletter */}
+        <div className="space-y-6">
+          <h4 className="text-lg font-semibold">Stay in touch</h4>
+          <p className="text-background/60 text-sm leading-relaxed">
+            Join the drop list for flavor restocks & weekend farmer's market pop-ups.
           </p>
+
           <form
-            className="flex flex-col sm:flex-row gap-3"
+            className="group relative flex items-center"
             onSubmit={(e) => e.preventDefault()}
           >
             <input
               type="email"
               placeholder="Email address"
-              className="flex-1 rounded-full px-5 py-3 text-foreground focus:outline-none"
+              className="w-full bg-background/5 border border-background/10 rounded-full pl-5 pr-32 py-4 text-sm text-background placeholder:text-background/40 focus:outline-none focus:bg-background/10 focus:border-background/20 transition-all"
             />
             <button
               type="submit"
-              className="bg-secondary text-secondary-foreground rounded-full px-6 py-3 font-semibold hover:bg-secondary/80 transition"
+              className="absolute right-1.5 top-1.5 bottom-1.5 bg-background text-foreground rounded-full px-6 text-xs sm:text-sm font-bold tracking-wide hover:bg-background/90 transition-colors whitespace-nowrap"
             >
               Notify me
             </button>
           </form>
-          <div className="flex gap-4 text-xl">
-            {socialLinks.map(({ id, icon: Icon }) => (
-              <a
-                key={id}
-                href="#"
-                className="w-10 h-10 rounded-full border border-background/40 flex items-center justify-center hover:bg-background hover:text-foreground transition"
-              >
-                <Icon />
-              </a>
-            ))}
-          </div>
+          <p className="text-[10px] text-background/40 uppercase tracking-wider">
+            No spam, just jars.
+          </p>
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-6 text-center text-sm text-background/70">
-        © {new Date().getFullYear()} NutriGren Collective. All slow baked.
+      <div className="border-t border-white/5 py-8 text-center">
+        <p className="text-xs text-background/40 uppercase tracking-widest">
+          © {new Date().getFullYear()} PEPAL BARRY Collective. All slow baked.
+        </p>
       </div>
     </footer>
   );

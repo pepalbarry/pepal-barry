@@ -9,11 +9,11 @@ export default {
         sans: ["'Sora'", ...defaultTheme.fontFamily.sans],
       },
       boxShadow: {
-        soft: "0 25px 65px -30px rgba(0, 76, 31, 0.35)",
+        soft: "0 25px 65px -30px rgba(93, 64, 55, 0.25)",
       },
       backgroundImage: {
-        "grid-green":
-          "radial-gradient(circle at 1px 1px, rgba(0, 90, 50, 0.12) 1px, transparent 0)",
+        "grid-pattern":
+          "radial-gradient(circle at 1px 1px, rgba(93, 64, 55, 0.12) 1px, transparent 0)",
       },
     },
   },

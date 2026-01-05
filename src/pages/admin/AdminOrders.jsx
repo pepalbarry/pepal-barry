@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import httpClient from "../../services/httpClient";
 import Card from "../../components/common/Card";
 import Badge from "../../components/common/Badge";
+import PageLoader from "../../components/common/PageLoader";
 
 export default function AdminOrders() {
     const [orders, setOrders] = useState([]);
@@ -50,7 +51,7 @@ export default function AdminOrders() {
         }
     };
 
-    if (loading) return <div className="p-10 text-center">Loading orders...</div>;
+    if (loading) return <PageLoader />;
     if (error) return <div className="p-10 text-center text-red-500">{error}</div>;
 
     return (

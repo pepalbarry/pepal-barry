@@ -16,6 +16,9 @@ import AdminRoute from "./routes/AdminRoute";
 import AdminLayout from "./components/admin/AdminLayout";
 import AdminOrders from "./pages/admin/AdminOrders";
 
+import Shop from "./pages/Shop";
+import AdminProducts from "./pages/admin/AdminProducts";
+
 function App() {
   return (
     <AuthProvider>
@@ -23,6 +26,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/shop" element={<Shop />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
@@ -42,6 +46,7 @@ function App() {
               <Route element={<AdminLayout />}>
                 <Route index element={<Navigate to="orders" replace />} />
                 <Route path="orders" element={<AdminOrders />} />
+                <Route path="products" element={<AdminProducts />} />
               </Route>
             </Route>
 

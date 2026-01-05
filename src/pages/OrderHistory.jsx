@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchOrders } from "../services/orders";
 import Button from "../components/common/Button";
+import BackButton from "../components/common/BackButton";
 import SectionHeading from "../components/common/SectionHeading";
 import Card from "../components/common/Card";
 
@@ -37,6 +38,7 @@ export default function OrderHistory() {
 
   return (
     <div className="min-h-screen bg-background px-5 md:px-20 pb-20 pt-28">
+      <BackButton />
       <SectionHeading
         eyebrow="Your jars"
         title="Order history"
@@ -119,8 +121,8 @@ function StatusPill({ status, type }) {
   if (type === "payment") {
     styles =
       status === "paid"
-        ? "bg-emerald-100 text-emerald-700"
-        : "bg-amber-100 text-amber-700";
+        ? "bg-primary/10 text-primary border border-primary/20"
+        : "bg-amber-100 text-amber-800 border border-amber-200";
     return (
       <span className={`px-3 py-1 rounded-full text-xs font-semibold capitalize ${styles}`}>
         {status === "paid" ? "Paid" : "Payment Pending"}
@@ -129,16 +131,16 @@ function StatusPill({ status, type }) {
   }
   switch (status) {
     case "Processing":
-      styles = "bg-blue-100 text-blue-700";
+      styles = "bg-secondary text-secondary-foreground border border-secondary";
       break;
     case "Shipped":
-      styles = "bg-purple-100 text-purple-700";
+      styles = "bg-accent/10 text-accent border border-accent/20";
       break;
     case "Delivered":
-      styles = "bg-green-100 text-green-700";
+      styles = "bg-primary/10 text-primary border border-primary/20";
       break;
     case "Cancelled":
-      styles = "bg-red-100 text-red-700";
+      styles = "bg-red-50 text-red-700 border border-red-200";
       break;
     default:
       styles = "bg-gray-100 text-gray-700";
