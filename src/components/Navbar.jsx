@@ -17,7 +17,7 @@ export default function Navbar() {
 
   const avatarSrc =
     user?.picture?.replace?.("s96-c", "s80-c") ||
-    `https://avatar.iran.liara.run/username?username=${encodeURIComponent(
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(
       user?.name || "Guest"
     )}`;
 
