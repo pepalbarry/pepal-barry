@@ -94,7 +94,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Stats - Mobile only */}
+        {/* Mobile only */}
         <div className="grid grid-cols-3 gap-2 sm:gap-4 w-full border-t border-primary/10 pt-6 lg:hidden order-3">
           {stats.map(({ label, value }) => (
             <div key={label} className="text-center">

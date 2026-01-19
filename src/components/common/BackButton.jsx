@@ -12,7 +12,7 @@ export default function BackButton({
   const location = useLocation();
 
   const handleBack = () => {
-    // Check if we need to warn the user
+   
     const shouldWarn = warnOnPaths.some((path) =>
       location.pathname.startsWith(path)
     );
@@ -24,7 +24,7 @@ export default function BackButton({
       return;
     }
 
-    // Default behavior: try to go back in history, else fallback
+   
     if (useHistoryFirst && window.history.state && window.history.state.idx > 0) {
       navigate(-1);
     } else {

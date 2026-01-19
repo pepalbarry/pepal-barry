@@ -35,7 +35,7 @@ Create `.env` files in both `client` and `server` folders.
 
 ```
 VITE_API_URL=http://localhost:5000
-VITE_CLIENT_ID=YOUR_GOOGLE_OAUTH_CLIENT_ID
+VITE_GOOGLE_CLIENT_ID=YOUR_GOOGLE_OAUTH_CLIENT_ID
 VITE_RAZORPAY_KEY_ID=rzp_test_xxxxx (optional, used for front-end fallback)
 ```
 

@@ -22,7 +22,7 @@ import AdminProducts from "./pages/admin/AdminProducts";
 function App() {
   return (
     <AuthProvider>
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
