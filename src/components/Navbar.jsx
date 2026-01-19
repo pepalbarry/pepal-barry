@@ -59,11 +59,13 @@ export default function Navbar() {
                   Orders
                 </Link>
               </li>
-              <li>
-                <Link className="hover:text-heading transition" to="/admin">
-                  Admin
-                </Link>
-              </li>
+              {user.role === "admin" && (
+                <li>
+                  <Link className="hover:text-heading transition" to="/admin">
+                    Admin
+                  </Link>
+                </li>
+              )}
             </>
           )}
         </ul>
@@ -109,13 +111,15 @@ export default function Navbar() {
                 >
                   Order history
                 </Link>
-                <Link
-                  to="/admin"
-                  className="block px-4 py-3 hover:bg-muted border-t border-primary/10"
-                  onClick={() => setProfileMenuOpen(false)}
-                >
-                  Admin Dashboard
-                </Link>
+                {user.role === "admin" && (
+                  <Link
+                    to="/admin"
+                    className="block px-4 py-3 hover:bg-muted border-t border-primary/10"
+                    onClick={() => setProfileMenuOpen(false)}
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
                 <button
                   onClick={handleLogout}
                   className="w-full text-left px-4 py-3 hover:bg-muted rounded-b-2xl border-t border-primary/10"
@@ -165,15 +169,17 @@ export default function Navbar() {
                   Orders
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/admin"
-                  className="block py-2"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Admin
-                </Link>
-              </li>
+              {user.role === "admin" && (
+                <li>
+                  <Link
+                    to="/admin"
+                    className="block py-2"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Admin
+                  </Link>
+                </li>
+              )}
             </>
           )}
         </ul>
