@@ -9,10 +9,10 @@ import Card from "../components/common/Card";
 export default function Checkout() {
     return (
         <CheckoutProvider>
-            <div className="min-h-screen bg-background px-5 py-24 flex justify-center">
+            <div className="min-h-screen bg-background px-4 py-24 flex justify-center">
                 <div className="w-full max-w-3xl space-y-6">
                     <BackButton />
-                    <Card className="p-6 md:p-8">
+                    <Card className="p-4 md:p-8">
                         <Routes>
                             <Route path="/" element={<OrderSummary />} />
                             <Route path="order-summary" element={<OrderSummary />} />

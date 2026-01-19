@@ -112,15 +112,16 @@ export default function AddressForm() {
           />
         </div>
 
-        <div className="flex justify-between pt-4">
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between pt-4">
           <Button
             type="button"
             variant="outline"
+            className="w-full sm:w-auto"
             onClick={() => navigate("/checkout/order-summary")}
           >
             Back
           </Button>
-          <Button type="submit">Continue to payment</Button>
+          <Button type="submit" className="w-full sm:w-auto">Continue to payment</Button>
         </div>
       </form>
     </div>

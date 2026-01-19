@@ -1,5 +1,6 @@
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import ScrollToTop from "./components/common/ScrollToTop";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import PageNotFound from "./pages/PageNotFound";
@@ -24,6 +25,7 @@ function App() {
     <AuthProvider>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/shop" element={<Shop />} />
