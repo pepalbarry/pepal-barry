@@ -48,7 +48,7 @@ export default function Shop() {
                             to={`/product/${product._id}`}
                             className="group block"
                         >
-                            <div className="relative aspect-square rounded-3xl overflow-hidden bg-muted mb-4">
+                            <div className="relative rounded-3xl overflow-hidden bg-muted mb-4 h-64 flex items-center justify-center">
                                 <img
                                     src={
                                         product.images?.[0] ||
@@ -56,7 +56,7 @@ export default function Shop() {
                                         "https://placehold.co/600x600?text=No+Image"
                                     }
                                     alt={product.name}
-                                    className="object-cover w-full h-full group-hover:scale-105 transition duration-500"
+                                    className="object-contain max-h-full max-w-full p-4 group-hover:scale-105 transition duration-500"
                                 />
                                 {product.stock <= 0 && (
                                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
