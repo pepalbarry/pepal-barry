@@ -12,9 +12,16 @@ export const AuthProvider = ({ children }) => {
       try {
         const res = await httpClient.get("/api/auth/me");
         if (res.data.success && res.data.user) {
-          setUser(res.data.user);
+          const safeUser = {
+            _id: res.data.user._id,
+            name: res.data.user.name,
+            email: res.data.user.email,
+            picture: res.data.user.picture,
+            role: res.data.user.role
+          };
+          setUser(safeUser);
           setToken("cookie_token"); // Keep isAuthenticated truthy
-          localStorage.setItem("user", JSON.stringify(res.data.user));
+          localStorage.setItem("user", JSON.stringify(safeUser));
         } else {
           setUser(null);
           setToken(null);

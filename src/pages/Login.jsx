@@ -28,8 +28,15 @@ export default function Login() {
     setLoading(true);
     try {
       const res = await httpClient.post("/api/auth/login", data);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      setUser(res.data.user);
+      const safeUser = {
+        _id: res.data.user._id,
+        name: res.data.user.name,
+        email: res.data.user.email,
+        picture: res.data.user.picture,
+        role: res.data.user.role
+      };
+      localStorage.setItem("user", JSON.stringify(safeUser));
+      setUser(safeUser);
       setToken("cookie_token");
       navigate(from, { state: productState, replace: true });
     } catch (err) {

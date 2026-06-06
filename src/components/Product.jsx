@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { getProducts } from "../services/products";
 import SectionHeading from "./common/SectionHeading";
 import ProductSkeleton from "./common/ProductSkeleton";
+import { getEffectivePrice, getDiscountLabel } from "../utils/pricing";
 
 export default function Product() {
   const [products, setProducts] = useState([]);
@@ -64,11 +65,17 @@ export default function Product() {
         )}
 
         {!loading &&
-          products.slice(0, 2).map((product, index) => (
+          products.slice(0, 2).map((product, index) => {
+            const isOutOfStock = Number(product.stock ?? 0) <= 0;
+            return (
             <Link
               key={product._id || product.name}
               to={`/product/${product._id}`}
-              className="group flex flex-col overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border border-primary/10 bg-card transition-transform duration-300 hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+              className={`group flex flex-col overflow-hidden rounded-[1.5rem] md:rounded-[2rem] border bg-card focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 ${
+                isOutOfStock
+                  ? "border-gray-200"
+                  : "border-primary/10 transition-transform duration-300 hover:-translate-y-1"
+              }`}
             >
               <div className="relative aspect-square w-full overflow-hidden border-b border-primary/5">
                 <img
@@ -78,7 +85,9 @@ export default function Product() {
                     "https://placehold.co/1000x1000?text=Product+Image"
                   }
                   alt={product.name}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className={`absolute inset-0 h-full w-full object-cover transition-transform duration-700 ${
+                    isOutOfStock ? "grayscale" : "group-hover:scale-105"
+                  }`}
                   loading="lazy"
                 />
 
@@ -86,23 +95,43 @@ export default function Product() {
                   JAR #{String(index + 1).padStart(2, "0")}
                 </div>
 
-                {Number(product.stock ?? 0) <= 0 && (
-                  <div className="absolute right-5 top-5 inline-flex items-center rounded-full bg-background/90 px-4 py-1.5 text-xs font-semibold text-heading backdrop-blur-md">
-                    Sold out
+                {!isOutOfStock && getDiscountLabel(product) && (
+                  <div className="absolute left-5 bottom-5 inline-flex items-center rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white backdrop-blur-md shadow-lg shadow-red-600/20">
+                    {getDiscountLabel(product)}
+                  </div>
+                )}
+
+                {isOutOfStock && (
+                  <div className="absolute inset-0 bg-background/50 flex items-center justify-center backdrop-blur-[2px]">
+                    <span className="bg-gray-900 text-white px-6 py-2.5 rounded-full text-sm font-bold tracking-wide uppercase shadow-lg">
+                      Sold Out
+                    </span>
                   </div>
                 )}
               </div>
 
-              <div className="p-6 md:p-8 flex flex-col gap-2">
-                <h3 className="text-xl md:text-2xl font-display font-semibold text-heading leading-snug line-clamp-2">
+              <div className={`p-6 md:p-8 flex flex-col gap-2 ${isOutOfStock ? "opacity-50" : ""}`}>
+                <h3 className={`text-xl md:text-2xl font-display font-semibold leading-snug line-clamp-2 ${
+                  isOutOfStock ? "text-gray-400" : "text-heading"
+                }`}>
                   {product.name}
                 </h3>
-                <p className="shrink-0 text-lg md:text-xl font-semibold text-heading">
-                  ₹{product.price}
-                </p>
+                <div className="flex items-center gap-3">
+                  <p className={`shrink-0 text-lg md:text-xl font-semibold ${
+                    isOutOfStock ? "text-gray-400" : "text-heading"
+                  }`}>
+                    ₹{getEffectivePrice(product)}
+                  </p>
+                  {!isOutOfStock && getDiscountLabel(product) && (
+                    <p className="text-base font-medium text-subtle line-through">
+                      ₹{product.price}
+                    </p>
+                  )}
+                </div>
               </div>
             </Link>
-          ))}
+          );
+          })}
       </div>
     </section>
   );
